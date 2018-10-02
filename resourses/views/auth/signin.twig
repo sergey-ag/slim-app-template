@@ -1,0 +1,36 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <div class="card">
+                <div class="card-header">Sign In</div>
+                <div class="card-body">
+                    <form action="{{ path_for('auth.signin') }}" method="post" autocomplete="off">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" name="user[email]" id="email" placeholder="you@domain.com" class="form-control{{ errors.email ? ' is-invalid' : '' }}" value="{{ oldInput.user.email }}">
+                            {% if errors.email %}
+                                <div class="invalid-feedback">
+                                   {{ errors.email | first }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="user[password]" id="password" class="form-control{{ errors.password ? ' is-invalid' : '' }}">
+                            {% if errors.password %}
+                                <div class="invalid-feedback">
+                                   {{ errors.password | first }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Sign In</button>
+                        <input type="hidden" name="{{ csrfGuard.tokenNameKey }}" value="{{ csrfGuard.tokenName }}">
+                        <input type="hidden" name="{{ csrfGuard.tokenValueKey }}" value="{{ csrfGuard.tokenValue }}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
